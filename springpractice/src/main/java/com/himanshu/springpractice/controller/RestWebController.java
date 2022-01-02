@@ -1,11 +1,7 @@
 package com.himanshu.springpractice.controller;
 
 import com.himanshu.springpractice.domain.User;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller class demonstrating different kinds of REST handling.
@@ -15,26 +11,56 @@ public class RestWebController {
 
   /**
    * Method demonstrating GET requests handling.
-   * Sample Request: curl http://localhost:8080/sayHello
+   * Sample Request: curl -X GET http://localhost:8080/getData
+   *
    * @return String
    */
-  @GetMapping("/sayHello")
+  @GetMapping("/getData")
   public String getHandling() {
-    return "Hello World";
+    User user = new User(123l, "Himanshu");
+    return ("GET:: User Information : " + user.getUserId() + "::" + user.getUserName());
   }
 
   /**
    * Method demonstrating POST requests handling.
    * Sample Request:
-   * curl -d '{"userId":123,"userName":"Himanshu"}' -H 'Content-Type:
+   * curl -X POST -d '{"userId":123,"userName":"Himanshu"}' -H 'Content-Type:
    * application/json' http://localhost:8080/setData
-   * 
+   *
    * @param user
    * @return String
    */
   @PostMapping("/setData")
   public String postHandling(@RequestBody User user) {
-    return ("User Information : " + user.getUserId() + "::" + user.getUserName());
+    return ("POST:: User Information : " + user.getUserId() + "::" + user.getUserName());
+  }
+
+  /**
+   * Method demonstrating PUT requests handling.
+   * Sample Request:
+   * curl -X PUT -d '{"userId":123,"userName":"Himanshu"}' -H 'Content-Type:
+   * application/json' http://localhost:8080/setData
+   *
+   * @param user
+   * @return String
+   */
+  @PutMapping("/setData")
+  public String putHandling(@RequestBody User user) {
+    return ("PUT:: User Information : " + user.getUserId() + "::" + user.getUserName());
+  }
+
+  /**
+   * Method demonstrating POST requests handling.
+   * Sample Request:
+   * curl -X DELETE -d '{"userId":123,"userName":"Himanshu"}' -H 'Content-Type:
+   * application/json' http://localhost:8080/setData
+   *
+   * @param user
+   * @return String
+   */
+  @DeleteMapping("/deleteData")
+  public String deleteHandling(@RequestBody User user) {
+    return ("DELETE:: User Information : " + user.getUserId() + "::" + user.getUserName());
   }
 
 }
