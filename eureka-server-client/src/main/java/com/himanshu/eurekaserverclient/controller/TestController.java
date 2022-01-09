@@ -13,6 +13,10 @@ public class TestController {
     @Autowired
     private EurekaClient discoveryClient;
 
+    /**
+     * Method to fetch information from eureka-server and respond to request accordingly.
+     * @return String
+     */
     @GetMapping("/get-hello")
     public String hello() {
         Application clientApplication = discoveryClient.getApplication("EUREKASERVERCLIENT");
