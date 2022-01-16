@@ -1,0 +1,6 @@
+#resilience4j.circuitbreaker:
+#  instances:
+#    cb1:
+#      slidingWindowSize: 10
+#      minimumNumberOfCalls: 3
+#      failureRateThreshold: 50
