@@ -1,6 +1,9 @@
 package com.himanshu.springpractice.controller;
 
 import com.himanshu.springpractice.domain.User;
+import com.himanshu.springpractice.service.TestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class RestWebController {
 
+  @Autowired
+  TestService testService;
   /**
    * Method demonstrating GET requests handling.
    * Sample Request: curl -X GET http://localhost:8080/getData
@@ -17,6 +22,7 @@ public class RestWebController {
    */
   @GetMapping("/getData")
   public String getHandling() {
+    testService.testMethod();
     User user = new User(123l, "Himanshu");
     return ("GET:: User Information : " + user.getUserId() + "::" + user.getUserName());
   }
