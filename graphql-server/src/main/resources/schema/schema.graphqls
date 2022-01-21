@@ -1,0 +1,17 @@
+type Query {
+    allPersons: [Person]
+    searchPerson(searchPersonId: Int): Person
+}
+
+type Person {
+    personId: Int
+    personName: String
+    personAddress: PersonAddress
+}
+
+type PersonAddress {
+    streetName: String
+    houseNumber: String
+    city: String
+    country: String
+}
