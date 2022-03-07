@@ -1,0 +1,45 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'com.google.protobuf' version '0.8.18'
+}
+
+group = 'com.himanshu'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+def grpcVersion = '1.44.1'
+def protobufVersion = '3.19.2'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'io.github.lognet:grpc-spring-boot-starter:4.6.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+protobuf {
+	protoc { artifact = "com.google.protobuf:protoc:${protobufVersion}" }
+	plugins {
+		grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+	}
+	generateProtoTasks {
+		all()*.plugins { grpc {} }
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs 'build/generated/source/proto/main/grpc'
+			srcDirs 'build/generated/source/proto/main/java'
+		}
+	}
+}
