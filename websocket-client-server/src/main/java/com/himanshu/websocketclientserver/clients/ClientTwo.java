@@ -38,11 +38,11 @@ class ClientTwoSessionHandler extends StompSessionHandlerAdapter {
 
     @Override
     public Type getPayloadType(StompHeaders headers) {
-        return IncomingMessage.class;
+        return OutgoingMessage.class;
     }
 
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
-        System.out.println("Received : " + ((IncomingMessage) payload).getName());
+        System.out.println("Received : " + ((OutgoingMessage) payload).getContent());
     }
 }
