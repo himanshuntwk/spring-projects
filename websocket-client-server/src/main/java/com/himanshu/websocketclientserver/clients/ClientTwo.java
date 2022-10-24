@@ -28,7 +28,7 @@ public class ClientTwo {
         StompSession session = sessionAsync.get();
         session.subscribe("/topic/messages", clientTwoSessionHandler);
         while (true) {
-            session.send("/topic/messages", new IncomingMessage("Henry " + System.currentTimeMillis()));
+            session.send("/app/process-message", new IncomingMessage("Henry " + System.currentTimeMillis()));
             Thread.sleep(2000);
         }
     }
