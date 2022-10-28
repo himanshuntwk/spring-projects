@@ -28,7 +28,7 @@ public class ClientOne {
         StompSession session = sessionAsync.get();
         session.subscribe("/topic/messages", clientOneSessionHandler);
         while (true) {
-            session.send("/topic/messages", new IncomingMessage("Himanshu " + System.currentTimeMillis()));
+            session.send("/app/process-message", new IncomingMessage("Himanshu " + System.currentTimeMillis()));
             Thread.sleep(2000);
         }
     }
@@ -38,11 +38,11 @@ class ClientOneSessionHandler extends StompSessionHandlerAdapter {
 
     @Override
     public Type getPayloadType(StompHeaders headers) {
-        return IncomingMessage.class;
+        return OutgoingMessage.class;
     }
 
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
-        System.out.println("Received : " + ((IncomingMessage) payload).getName());
+        System.out.println("Received : " + ((OutgoingMessage) payload).getContent());
     }
 }
