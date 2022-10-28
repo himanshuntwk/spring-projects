@@ -14,6 +14,9 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 import java.lang.reflect.Type;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * This client send its message to server which in turn send it to common topic for communication.
+ */
 public class ClientTwo {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {

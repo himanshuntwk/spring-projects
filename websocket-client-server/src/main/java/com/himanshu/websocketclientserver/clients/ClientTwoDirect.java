@@ -1,7 +1,6 @@
 package com.himanshu.websocketclientserver.clients;
 
 import com.himanshu.websocketclientserver.server.IncomingMessage;
-import com.himanshu.websocketclientserver.server.OutgoingMessage;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
@@ -15,9 +14,9 @@ import java.lang.reflect.Type;
 import java.util.concurrent.ExecutionException;
 
 /**
- * This client send its message to server which in turn send it to common topic for communication.
+ * This client send its message directly to common topic for communication.
  */
-public class ClientOne {
+public class ClientTwoDirect {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         WebSocketClient client = new StandardWebSocketClient();
@@ -25,27 +24,27 @@ public class ClientOne {
         WebSocketStompClient stompClient = new WebSocketStompClient(client);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
-        ClientOneSessionHandler clientOneSessionHandler = new ClientOneSessionHandler();
+        ClientTwoDirectSessionHandler clientTwoDirectSessionHandler = new ClientTwoDirectSessionHandler();
         ListenableFuture<StompSession> sessionAsync =
-                stompClient.connect("ws://localhost:8080/websocket-server", clientOneSessionHandler);
+                stompClient.connect("ws://localhost:8080/websocket-server", clientTwoDirectSessionHandler);
         StompSession session = sessionAsync.get();
-        session.subscribe("/topic/messages", clientOneSessionHandler);
+        session.subscribe("/topic/messages", clientTwoDirectSessionHandler);
         while (true) {
-            session.send("/app/process-message", new IncomingMessage("Himanshu " + System.currentTimeMillis()));
+            session.send("/topic/messages", new IncomingMessage("Direct :: Henry " + System.currentTimeMillis()));
             Thread.sleep(2000);
         }
     }
 }
 
-class ClientOneSessionHandler extends StompSessionHandlerAdapter {
+class ClientTwoDirectSessionHandler extends StompSessionHandlerAdapter {
 
     @Override
     public Type getPayloadType(StompHeaders headers) {
-        return OutgoingMessage.class;
+        return IncomingMessage.class;
     }
 
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
-        System.out.println("Received : " + ((OutgoingMessage) payload).getContent());
+        System.out.println("Received : " + ((IncomingMessage) payload).getName());
     }
 }

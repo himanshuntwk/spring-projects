@@ -15,9 +15,9 @@ import java.lang.reflect.Type;
 import java.util.concurrent.ExecutionException;
 
 /**
- * This client send its message to server which in turn send it to common topic for communication.
+ * This client send its message directly to common topic for communication.
  */
-public class ClientOne {
+public class ClientOneDirect {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         WebSocketClient client = new StandardWebSocketClient();
@@ -25,27 +25,27 @@ public class ClientOne {
         WebSocketStompClient stompClient = new WebSocketStompClient(client);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
-        ClientOneSessionHandler clientOneSessionHandler = new ClientOneSessionHandler();
+        ClientOneDirectSessionHandler clientOneDirectSessionHandler = new ClientOneDirectSessionHandler();
         ListenableFuture<StompSession> sessionAsync =
-                stompClient.connect("ws://localhost:8080/websocket-server", clientOneSessionHandler);
+                stompClient.connect("ws://localhost:8080/websocket-server", clientOneDirectSessionHandler);
         StompSession session = sessionAsync.get();
-        session.subscribe("/topic/messages", clientOneSessionHandler);
+        session.subscribe("/topic/messages", clientOneDirectSessionHandler);
         while (true) {
-            session.send("/app/process-message", new IncomingMessage("Himanshu " + System.currentTimeMillis()));
+            session.send("/topic/messages", new IncomingMessage("Direct :: Himanshu " + System.currentTimeMillis()));
             Thread.sleep(2000);
         }
     }
 }
 
-class ClientOneSessionHandler extends StompSessionHandlerAdapter {
+class ClientOneDirectSessionHandler extends StompSessionHandlerAdapter {
 
     @Override
     public Type getPayloadType(StompHeaders headers) {
-        return OutgoingMessage.class;
+        return IncomingMessage.class;
     }
 
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
-        System.out.println("Received : " + ((OutgoingMessage) payload).getContent());
+        System.out.println("Received : " + ((IncomingMessage) payload).getName());
     }
 }
