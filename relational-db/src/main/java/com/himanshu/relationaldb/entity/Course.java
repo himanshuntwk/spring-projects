@@ -6,8 +6,8 @@ import lombok.Data;
 
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 public class Course {
   @Id
   @GeneratedValue

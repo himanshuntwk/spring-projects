@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.util.List;
 
+@Data
 @Entity
 public class Student {
 
@@ -14,6 +15,8 @@ public class Student {
   @GeneratedValue
   private Long id;
   private String studentName;
+
+  @JsonBackReference
   @ManyToOne
   private School school;
 
@@ -23,38 +26,9 @@ public class Student {
       joinColumns = @JoinColumn(name = "student_id"),
       inverseJoinColumns = @JoinColumn(name = "course_id")
   )
-  List<Course> courses;
+  private List<Course> courses;
 
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getStudentName() {
-    return studentName;
-  }
-
-  public void setStudentName(String studentName) {
-    this.studentName = studentName;
-  }
-
-  @JsonBackReference
-  public School getSchool() {
-    return school;
-  }
-
-  public void setSchool(School school) {
-    this.school = school;
-  }
-
-  public List<Course> getCourses() {
-    return courses;
-  }
-
-  public void setCourses(List<Course> courses) {
-    this.courses = courses;
-  }
+  @JsonManagedReference
+  @OneToOne
+  private StudentAddress address;
 }
