@@ -1,11 +1,10 @@
 package com.himanshu.relationaldb.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,6 +15,6 @@ public class School {
   private String schoolName;
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "school",fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "school", fetch = FetchType.EAGER)
   private List<Student> students;
 }

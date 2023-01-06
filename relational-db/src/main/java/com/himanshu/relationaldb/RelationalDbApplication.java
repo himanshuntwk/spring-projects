@@ -28,34 +28,6 @@ public class RelationalDbApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Start>>");
-//		Course course = new Course();
-//		course.setCourseName("computer");
-//		courseService.saveCourse(course);
-//		Course course2 = new Course();
-//		course2.setCourseName("mechanical");
-//		courseService.saveCourse(course2);
-//
-//		Student himanshu = new Student();
-//		School school = new School();
-//		school.setSchoolName("KPS");
-//		himanshu.setStudentName("Himanshu");
-//		himanshu.setSchool(school);
-//		schoolService.saveSchool(school);
-//		Student rahul = new Student();
-//		rahul.setStudentName("Rahul");
-//		rahul.setSchool(school);
-//		himanshu.setCourses(List.of(course,course2));
-//		rahul.setCourses(List.of(course,course2));
-//		course.setStudents(List.of(himanshu, rahul));
-//		course2.setStudents(List.of(himanshu, rahul));
-//
-//		studentService.saveStudent(himanshu);
-//		studentService.saveStudent(rahul);
-//		System.out.println(studentService.getStudent(1l).getSchool().getSchoolName());
-//		System.out.println("Course size :: " + studentService.getStudent(1l).getCourses().size());
-//		School schoolDb = schoolService.getSchool(1l);
-//		int size = schoolDb.getStudents().size();
-//		System.out.println("Students >> " + size);
+		System.out.println("Application started");
 	}
 }
