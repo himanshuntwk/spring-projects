@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: postgres
+    password: password
   jpa:
     open-in-view: false
     hibernate:
@@ -19,6 +19,7 @@ logging:
       hibernate:
         SQL: DEBUG
         orm.jdbc.bind: TRACE
-
+server:
+  port: 8181
 
 
