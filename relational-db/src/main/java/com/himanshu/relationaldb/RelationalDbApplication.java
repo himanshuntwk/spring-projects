@@ -16,12 +16,6 @@ import java.util.List;
 @SpringBootApplication
 public class RelationalDbApplication implements CommandLineRunner {
 
-	@Autowired
-	CourseService courseService;
-	@Autowired
-	StudentService studentService;
-	@Autowired
-	SchoolService schoolService;
 	public static void main(String[] args) {
 		SpringApplication.run(RelationalDbApplication.class, args);
 	}
