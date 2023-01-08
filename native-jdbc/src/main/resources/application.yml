@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+    hikari:
+      schema: native
+logging:
+  level:
+    org.springframework.jdbc.core: TRACE
+server:
+  port: 8181
