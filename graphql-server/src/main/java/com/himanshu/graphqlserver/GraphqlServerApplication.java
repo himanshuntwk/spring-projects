@@ -24,12 +24,9 @@ public class GraphqlServerApplication implements CommandLineRunner {
     WebClient webClient = WebClient.create("http://localhost:8080/graphql");
     WebClientGraphQLClient client = MonoGraphQLClient.createWithWebClient(webClient);
 
-    //The GraphQLResponse contains data and errors.
     Mono<GraphQLResponse> graphQLResponseMono = client.reactiveExecuteQuery("{ searchPerson(searchPersonId: 1) { personId personName}}");
-    //GraphQLResponse has convenience methods to extract fields using JsonPath.
-    Mono<String> somefield = graphQLResponseMono.map(r -> r.extractValue("data.searchPerson.personName"));
 
-    //Don't forget to subscribe! The request won't be executed otherwise.
+    Mono<String> somefield = graphQLResponseMono.map(r -> r.extractValue("data.searchPerson.personName"));
     somefield.subscribe(System.out::print);
   }
 }
