@@ -1,0 +1,6 @@
+server:
+  port: 8080
+logging:
+  level:
+    web: TRACE
+    org.springframework.web: TRACE

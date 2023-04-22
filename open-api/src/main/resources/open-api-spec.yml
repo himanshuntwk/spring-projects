@@ -1,0 +1,37 @@
+openapi: "3.0.3"
+info:
+  title: OpenAPI demo
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/v1/
+paths:
+  /user/{search}:
+    get:
+      summary: Get list of users
+      operationId: getUserBySearch
+      description: Retrieves the list of users currently present in the database.
+      parameters:
+        - name: search
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Successfully listed"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDTO'
+components:
+  schemas:
+    UserDTO:
+      type: object
+      description: User dto for user information
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
