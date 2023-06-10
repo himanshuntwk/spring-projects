@@ -11,7 +11,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CustomAuthentication implements Authentication {
+public class ExternalAuthentication implements Authentication {
 
     private final boolean authentication;
     private final String key;

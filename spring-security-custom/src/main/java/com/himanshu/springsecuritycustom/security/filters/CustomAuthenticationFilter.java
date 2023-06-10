@@ -1,7 +1,8 @@
 package com.himanshu.springsecuritycustom.security.filters;
 
 import com.himanshu.springsecuritycustom.security.authentication.CustomAuthentication;
-import com.himanshu.springsecuritycustom.security.managers.CustomAuthenticationManager;
+import com.himanshu.springsecuritycustom.security.authentication.ExternalAuthentication;
+import com.himanshu.springsecuritycustom.security.manager.CustomAuthenticationManager;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,13 +24,17 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
         String headerKey = request.getHeader("key");
-
-        CustomAuthentication customAuthentication = new CustomAuthentication(false, headerKey);
-        Authentication authenticateObject = customAuthenticationManager.authenticate(customAuthentication);
-        SecurityContextHolder.getContext().setAuthentication(authenticateObject);
+        String externalHeaderKey = request.getHeader("external-key");
+        Authentication authenticatedObject;
+        if (externalHeaderKey != null) {
+            ExternalAuthentication externalAuthentication = new ExternalAuthentication(false, externalHeaderKey);
+            authenticatedObject = customAuthenticationManager.authenticate(externalAuthentication);
+        }else {
+            CustomAuthentication customAuthentication = new CustomAuthentication(false, headerKey);
+            authenticatedObject = customAuthenticationManager.authenticate(customAuthentication);
+        }
+        SecurityContextHolder.getContext().setAuthentication(authenticatedObject);
         filterChain.doFilter(request, response);
     }
-
 }
