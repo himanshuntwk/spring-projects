@@ -20,4 +20,10 @@ public class AppController {
     public String other() {
         return "Other Controller endpoint";
     }
+
+    @GetMapping("/img_676")
+    public String regexData() {
+        return "regex endpoint";
+    }
+
 }

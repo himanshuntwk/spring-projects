@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -21,6 +22,7 @@ public class SecurityConfig {
         return httpSecurity.httpBasic(withDefaults())
                 .authorizeRequests(authorizeRequests -> authorizeRequests.requestMatchers("/hello")
                         .hasAuthority("admin").requestMatchers("/hi").hasAuthority("consultant")
+                        .requestMatchers(RegexRequestMatcher.regexMatcher("/img_[0-9]{3}")).authenticated()
                         .anyRequest().denyAll()).build();
     }
 
