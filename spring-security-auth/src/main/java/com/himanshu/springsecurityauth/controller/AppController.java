@@ -8,22 +8,22 @@ public class AppController {
 
     @GetMapping("/hello")
     public String hello() {
-        return "Hello Admin";
+        return "Hello admin";
     }
 
     @GetMapping("/hi")
     public String hi() {
-        return "Hi Consultant";
+        return "Hi consultant";
     }
 
     @GetMapping("/other")
     public String other() {
-        return "Other Controller endpoint";
+        return "Other endpoint accessible after authentication";
     }
 
-    @GetMapping("/img_676")
-    public String regexData() {
-        return "regex endpoint";
+    @GetMapping("/img_783")
+    public String staticImage() {
+        return "Static image served";
     }
 
 }

@@ -19,23 +19,27 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.httpBasic(withDefaults())
-                .authorizeRequests(authorizeRequests -> authorizeRequests.requestMatchers("/hello")
-                        .hasAuthority("admin").requestMatchers("/hi").hasAuthority("consultant")
+        return httpSecurity.httpBasic(withDefaults()).authorizeHttpRequests(authorizeRequests ->
+                authorizeRequests
+                        .requestMatchers("/hello").hasAuthority("admin")
+                        .requestMatchers("/hi").hasAuthority("consultant")
                         .requestMatchers(RegexRequestMatcher.regexMatcher("/img_[0-9]{3}")).authenticated()
-                        .anyRequest().denyAll()).build();
+                        .anyRequest().authenticated()).build();
     }
-
 
     @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
+
         UserDetails himanshuUser =
                 User.withUsername("himanshu").password(passwordEncoder().encode("12345")).authorities("admin").build();
-        UserDetails consultantUser =
+
+        UserDetails consulUser =
                 User.withUsername("consul").password(passwordEncoder().encode("12345")).authorities("consultant").build();
+
         inMemoryUserDetailsManager.createUser(himanshuUser);
-        inMemoryUserDetailsManager.createUser(consultantUser);
+        inMemoryUserDetailsManager.createUser(consulUser);
+
         return inMemoryUserDetailsManager;
     }
 
