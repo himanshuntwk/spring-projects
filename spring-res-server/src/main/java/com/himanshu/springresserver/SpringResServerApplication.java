@@ -20,14 +20,3 @@ public class SpringResServerApplication {
   }
 
 }
-
-
-@Controller
-@ResponseBody
-class HelloController {
-
-  @GetMapping("/hello")
-  String hello(@AuthenticationPrincipal Jwt jwt) {
-    return "Hello " + jwt.getSubject();
-  }
-}
