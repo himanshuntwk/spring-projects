@@ -1,5 +1,7 @@
 package com.himanshu.springkeycloakauth.config;
 
+import com.himanshu.springkeycloakauth.security.CustomAuthenticationEntryPoint;
+import com.himanshu.springkeycloakauth.security.CustomFilter;
 import org.keycloak.adapters.authorization.integration.jakarta.ServletPolicyEnforcerFilter;
 import org.keycloak.adapters.authorization.spi.ConfigurationResolver;
 import org.keycloak.adapters.authorization.spi.HttpRequest;
@@ -20,14 +22,25 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
+  CustomFilter customFilter;
+
+  CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+  public SecurityConfig(CustomFilter customFilter, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
+    this.customFilter = customFilter;
+    this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
+  }
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
         .authorizeHttpRequests(authorize -> authorize
             .anyRequest().authenticated()
         )
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults())
+            .authenticationEntryPoint(customAuthenticationEntryPoint))
         .addFilterAfter(createPolicyEnforcerFilter(), BearerTokenAuthenticationFilter.class)
+        .addFilterAfter(customFilter, BearerTokenAuthenticationFilter.class)
         .build();
   }
 
@@ -36,7 +49,8 @@ public class SecurityConfig {
       @Override
       public PolicyEnforcerConfig resolve(HttpRequest request) {
         try {
-          return JsonSerialization.readValue(getClass().getResourceAsStream("/policy-enforcer.json"), PolicyEnforcerConfig.class);
+          PolicyEnforcerConfig policyEnforcerConfig = JsonSerialization.readValue(getClass().getResourceAsStream("/policy-enforcer.json"), PolicyEnforcerConfig.class);
+          return policyEnforcerConfig;
         } catch (IOException e) {
           throw new RuntimeException(e);
         }

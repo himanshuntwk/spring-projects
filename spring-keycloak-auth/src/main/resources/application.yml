@@ -8,3 +8,6 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:8080/realms/new-demo-realm/protocol/openid-connect/certs
+#logging:
+#  level:
+#    root: INFO
