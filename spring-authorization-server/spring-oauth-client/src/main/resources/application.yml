@@ -1,13 +1,5 @@
 server:
   port: 8082
-
-logging:
-  level:
-    root: INFO
-    org.springframework.web: INFO
-    org.springframework.security: INFO
-    org.springframework.security.oauth2: INFO
-
 spring:
   output.ansi.enabled: ALWAYS
   security:
@@ -17,9 +9,9 @@ spring:
           spring:
             issuer-uri: http://localhost:8080
         registration:
-          my-client:
+          reg-client:
             provider: spring
-            client-id: crm
+            client-id: demo
             client-secret: "secret"
             authorization-grant-type: authorization_code
             client-authentication-method: client_secret_basic

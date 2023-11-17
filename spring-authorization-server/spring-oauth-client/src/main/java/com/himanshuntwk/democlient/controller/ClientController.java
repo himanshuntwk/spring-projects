@@ -25,7 +25,7 @@ public class ClientController {
 
     HttpHeaders httpHeaders = new HttpHeaders();
     String accessToken = authorizedClientService
-        .loadAuthorizedClient("my-client", principal.getName())
+        .loadAuthorizedClient("reg-client", principal.getName())
         .getAccessToken().getTokenValue();
     httpHeaders.set("Authorization", "Bearer " + accessToken);
 
