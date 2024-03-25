@@ -1,0 +1,23 @@
+server.port: 8080
+logging.level.org.atmosphere:  warn
+spring:
+  mustache.check-template-location:  false
+  jpa.defer-datasource-initialization: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      embedding:
+        model: nomic-embed-text
+      chat:
+        model: llama2
+    vectorstore:
+      pgvector:
+        dimensions: 768
+vaadin:
+  launch-browser: true
+  allowed-packages: com.vaadin,org.vaadin,dev.hilla,com.example.application
+
