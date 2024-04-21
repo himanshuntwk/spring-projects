@@ -1,0 +1,2 @@
+spring.application.name: reactive-web
+#logging.level.org.springframework.r2dbc: trace
