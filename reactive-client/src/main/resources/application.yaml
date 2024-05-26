@@ -1,0 +1,4 @@
+spring.application.name: reactive-client
+server:
+  port: 8181
+book.base.url: http://localhost:8080
