@@ -1,2 +1,17 @@
 spring:
   application.name: modulith-demo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/
+    username: postgres
+    password: password
+  modulith:
+    events:
+      jdbc.schema-initialization.enabled: true
+      republish-outstanding-events-on-restart: true
+    moments:
+      enable-time-machine: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

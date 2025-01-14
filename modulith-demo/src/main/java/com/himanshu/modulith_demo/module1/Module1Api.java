@@ -2,8 +2,10 @@ package com.himanshu.modulith_demo.module1;
 
 import com.himanshu.modulith_demo.module1.internal.InternalData1;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Component
+@RestController
 public class Module1Api {
 
     private final InternalData1 internalData1;
@@ -12,6 +14,7 @@ public class Module1Api {
         this.internalData1 = internalData1;
     }
 
+    @PostMapping("/sendEvent")
     public void sendEvent() {
         internalData1.sendEvent();
     }
