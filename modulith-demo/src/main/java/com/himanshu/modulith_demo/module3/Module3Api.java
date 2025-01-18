@@ -24,7 +24,7 @@ public class Module3Api {
     @Transactional
     @GetMapping("/moment")
     public void testMoment() {
-        for(int i=0;i<7;i++) {
+        for (int i = 0; i < 7; i++) {
             timeMachine.shiftBy(Duration.ofDays(1));
         }
     }

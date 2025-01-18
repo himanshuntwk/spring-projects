@@ -1,7 +1,6 @@
 package com.himanshu.modulith_demo.module1;
 
 import com.himanshu.modulith_demo.module1.internal.InternalData1;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
