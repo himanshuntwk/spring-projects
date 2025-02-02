@@ -1,0 +1,14 @@
+spring:
+  ai:
+    ollama:
+      chat:
+        options:
+          model: deepseek-r1:8b
+      base-url: http://localhost:11434
+    chat:
+      client:
+        enabled: false
+logging:
+  level:
+    org:
+      springframework.ai.chat.client.advisor: DEBUG
