@@ -1,0 +1,28 @@
+server.port: 8282
+
+spring:
+  main:
+    web-application-type: reactive
+  application.name: kc-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: kc-gateway
+          uri: http://localhost:8383
+          predicates:
+            - Path=/hello
+      default-filters:
+        - TokenRelay
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/new-demo-realm/protocol/openid-connect/certs
+#    oauth2.client:
+#      registration.keycloak:
+#        client-id: spring-client
+#        authorization-grant-type: authorization_code
+#        scope: openid
+#      provider.keycloak:
+#        issuer-uri: http://localhost:8080/realms/springrealm
+#        user-name-attribute: springappuser

@@ -1,0 +1,8 @@
+{
+  "realm": "new-demo-realm",
+  "auth-server-url": "http://localhost:8080",
+  "resource": "new-demo-client",
+  "credentials": {
+    "secret": "mFEB4kKFspuEHIBXZP3wqIibALZ5L9aO"
+  }
+}
