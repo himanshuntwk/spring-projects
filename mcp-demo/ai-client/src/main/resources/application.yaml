@@ -1,0 +1,17 @@
+spring:
+  application.name: ai-client
+  ai:
+    ollama:
+      chat:
+        model: llama3.2:latest
+    mcp:
+      client:
+        enabled: true
+        name: my-mcp-client
+        version: 1.0.0
+        type: SYNC
+        request-timeout: 30s
+        sse:
+          connections:
+            server1:
+              url: http://localhost:8181
