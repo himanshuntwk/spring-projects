@@ -1,0 +1,23 @@
+spring:
+  application.name: spring-ai-demo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  ai:
+    vectorstore:
+      pgvector:
+        table-name: testdata
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 1024
+        max-document-batch-size: 10000
+    ollama:
+      base-url: http://localhost:11434
+      embedding:
+        options:
+            model: mxbai-embed-large
+      chat:
+        options:
+          model: gemma3:4b
