@@ -1,0 +1,21 @@
+spring:
+  application.name: spring-ai-demo
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: gemma3:4b
+#    chat:
+#      memory:
+#        repository:
+#          jdbc:
+#            initialize-schema: always
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+logging:
+  level:
+    root: error
