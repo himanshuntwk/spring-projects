@@ -1,0 +1,11 @@
+spring:
+  application.name: spring-ai-demo
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: gemma3:4b
+logging:
+  level:
+    root: error
